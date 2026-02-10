@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FiSave, FiArrowLeft, FiPlus, FiX, FiEye } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
 
 function AdminWorkshopForm() {
     const { id } = useParams();
@@ -140,7 +140,7 @@ function AdminWorkshopForm() {
         setUploading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:3000/api/upload', {
+            const res = await fetch('https://urbanharvest-production.up.railway.app/api/upload', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -437,7 +437,7 @@ function AdminWorkshopForm() {
                                     {formData.image && (
                                         <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100 shrink-0">
                                             <img
-                                                src={formData.image.startsWith('http') ? formData.image : `http://localhost:3000${formData.image}`}
+                                                src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />
@@ -655,7 +655,7 @@ function AdminWorkshopForm() {
                                     {instructorForm.image && (
                                         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-rustic-clay shrink-0">
                                             <img
-                                                src={instructorForm.image.startsWith('http') ? instructorForm.image : `http://localhost:3000${instructorForm.image}`}
+                                                src={instructorForm.image.startsWith('http') ? instructorForm.image : `https://urbanharvest-production.up.railway.app${instructorForm.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />

@@ -6,7 +6,7 @@ import EmptyState from '../../components/EmptyState';
 import { FiPackage } from 'react-icons/fi';
 import OrderDetailModal from '../../components/OrderDetailModal';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
 
 const ProfileOrders = () => {
     const { getToken } = useAuth();

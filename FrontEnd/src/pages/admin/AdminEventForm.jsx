@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useAppContext } from "../../context/AppContext";
 import { FiSave, FiArrowLeft, FiPlus, FiX, FiEye } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
 
 function AdminEventForm() {
     const { id } = useParams();
@@ -127,7 +127,7 @@ function AdminEventForm() {
         setUploading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:3000/api/upload', {
+            const res = await fetch('https://urbanharvest-production.up.railway.app/api/upload', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -319,7 +319,7 @@ function AdminEventForm() {
                                     {formData.image && (
                                         <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100">
                                             <img
-                                                src={formData.image.startsWith('http') ? formData.image : `http://localhost:3000${formData.image}`}
+                                                src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />
@@ -497,7 +497,7 @@ function AdminEventForm() {
                                                     {speaker.image && (
                                                         <div className="shrink-0">
                                                             <img
-                                                                src={speaker.image.startsWith('http') ? speaker.image : `http://localhost:3000${speaker.image}`}
+                                                                src={speaker.image.startsWith('http') ? speaker.image : `https://urbanharvest-production.up.railway.app${speaker.image}`}
                                                                 alt="Speaker"
                                                                 className="w-10 h-10 rounded-full object-cover border border-gray-200"
                                                             />

@@ -15,7 +15,7 @@ const Subscriptions = () => {
 
     const fetchSubscriptions = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/subscriptions");
+            const response = await fetch("https://urbanharvest-production.up.railway.app/api/subscriptions");
             if (!response.ok) {
                 throw new Error("Failed to fetch subscriptions");
             }

@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { FiArrowLeft, FiUsers, FiMail, FiCalendar, FiPackage, FiClock, FiChevronDown, FiChevronUp, FiMapPin, FiPhone, FiHome, FiSearch, FiTrash2 } from "react-icons/fi";
 import Pagination from "../../components/Pagination";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
 const ITEMS_PER_PAGE = 10;
 
 function AdminSubscriptionSubscribers() {

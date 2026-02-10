@@ -5,7 +5,7 @@ import HistoryCard from '../../components/HistoryCard';
 import EmptyState from '../../components/EmptyState';
 import { FiCalendar } from 'react-icons/fi';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
 
 const ProfileEvents = () => {
     const { getToken } = useAuth();

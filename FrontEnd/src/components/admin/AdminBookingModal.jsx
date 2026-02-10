@@ -11,7 +11,7 @@ function AdminBookingModal({ workshopId, onClose, workshopTitle }) {
         const fetchBookings = async () => {
             try {
                 const token = getToken();
-                const res = await fetch(`http://localhost:3000/api/workshops/${workshopId}/bookings`, {
+                const res = await fetch(`https://urbanharvest-production.up.railway.app/api/workshops/${workshopId}/bookings`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

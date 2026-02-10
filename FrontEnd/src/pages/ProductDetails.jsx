@@ -26,7 +26,7 @@ function ProductDetails({ adminPreview = false }) {
   const fetchReviews = async () => {
     setLoadingReviews(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${id}/reviews`);
+      const response = await fetch(`https://urbanharvest-production.up.railway.app/api/products/${id}/reviews`);
       if (response.ok) {
         const data = await response.json();
         setReviews(data);
@@ -69,8 +69,8 @@ function ProductDetails({ adminPreview = false }) {
 
     try {
       const url = editingReviewId
-        ? `http://localhost:3000/api/reviews/${editingReviewId}`
-        : `http://localhost:3000/api/products/${id}/reviews`;
+        ? `https://urbanharvest-production.up.railway.app/api/reviews/${editingReviewId}`
+        : `https://urbanharvest-production.up.railway.app/api/products/${id}/reviews`;
 
       const method = editingReviewId ? "PUT" : "POST";
 
@@ -114,7 +114,7 @@ function ProductDetails({ adminPreview = false }) {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
+      const response = await fetch(`https://urbanharvest-production.up.railway.app/api/reviews/${reviewId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`

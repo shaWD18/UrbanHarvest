@@ -45,19 +45,19 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
     const fetchData = async () => {
         try {
             const token = getToken();
-            const subRes = await fetch(`http://localhost:3000/api/subscriptions/${id}`);
+            const subRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}`);
             if (!subRes.ok) throw new Error("Subscription not found");
             const subData = await subRes.json();
             setSubscription(subData);
 
-            const reviewsRes = await fetch(`http://localhost:3000/api/subscriptions/${id}/reviews`);
+            const reviewsRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews`);
             if (reviewsRes.ok) {
                 const reviewsData = await reviewsRes.json();
                 setReviews(reviewsData);
             }
 
             if (user && token) {
-                const statusRes = await fetch(`http://localhost:3000/api/subscriptions/${id}/status`, {
+                const statusRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/status`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (statusRes.ok) {
@@ -114,7 +114,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
                 payload.delivery_day = deliveryDay;
             }
 
-            const response = await fetch(`http://localhost:3000/api/subscriptions/${id}/subscribe`, {
+            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/subscribe`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -150,7 +150,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
         const token = getToken();
         setSubscribing(true);
         try {
-            const response = await fetch(`http://localhost:3000/api/subscriptions/${id}/unsubscribe`, {
+            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/unsubscribe`, {
                 method: "POST",
                 headers: { "Authorization": `Bearer ${token}` }
             });
@@ -172,8 +172,8 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
         const token = getToken();
         try {
             const url = editingReviewId
-                ? `http://localhost:3000/api/subscriptions/${id}/reviews/${editingReviewId}`
-                : `http://localhost:3000/api/subscriptions/${id}/reviews`;
+                ? `https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews/${editingReviewId}`
+                : `https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews`;
 
             const method = editingReviewId ? "PUT" : "POST";
 
@@ -216,7 +216,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
 
         const token = getToken();
         try {
-            const response = await fetch(`http://localhost:3000/api/subscriptions/${id}/reviews/${reviewId}`, {
+            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews/${reviewId}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });

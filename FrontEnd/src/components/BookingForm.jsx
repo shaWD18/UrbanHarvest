@@ -61,13 +61,13 @@ function BookingForm({ workshopId, eventId, title, type, price, onClose, maxTick
             let url, body;
 
             if (workshopId) {
-                url = `http://localhost:3000/api/workshops/${workshopId}/book`;
+                url = `https://urbanharvest-production.up.railway.app/api/workshops/${workshopId}/book`;
                 body = {
                     tickets: parseInt(formData.tickets),
                     totalPrice: total
                 };
             } else if (eventId) {
-                url = `http://localhost:3000/api/events/${eventId}/book`;
+                url = `https://urbanharvest-production.up.railway.app/api/events/${eventId}/book`;
                 body = {
                     attendees: parseInt(formData.tickets),
                     // Events might be free, total is implicit or not needed if free, but let's send it just in case logic needs it

@@ -1,6 +1,6 @@
 // Push Notification Utilities for Urban Harvest PWA
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
 
 /**
  * Check if push notifications are supported

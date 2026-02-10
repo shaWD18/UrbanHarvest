@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { FiPackage, FiCalendar, FiBox, FiMail, FiUser, FiClock, FiTool } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
 
 const ProfileOverview = () => {
     const { user, getToken } = useAuth();

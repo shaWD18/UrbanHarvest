@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import BookingForm from "../components/BookingForm";
 import { FiArrowLeft, FiCalendar, FiMapPin, FiLock, FiEye, FiEdit2 } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
 
 function EventDetails({ adminPreview = false }) {
   const { id } = useParams();

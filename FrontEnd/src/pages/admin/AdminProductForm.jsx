@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FiPlus, FiX, FiSave, FiEye } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
 
 function AdminProductForm() {
     const { id } = useParams();
@@ -122,7 +122,7 @@ function AdminProductForm() {
         setUploading(true);
         try {
             const token = getToken();
-            const res = await fetch('http://localhost:3000/api/upload', {
+            const res = await fetch('https://urbanharvest-production.up.railway.app/api/upload', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -264,7 +264,7 @@ function AdminProductForm() {
                             {(formData.image) && (
                                 <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100">
                                     <img
-                                        src={formData.image.startsWith('http') ? formData.image : `http://localhost:3000${formData.image}`}
+                                        src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
                                         alt="Preview"
                                         className="w-full h-full object-cover"
                                         onError={(e) => { e.target.src = '/assets/placeholder.jpg' }}
