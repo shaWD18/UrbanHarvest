@@ -139,7 +139,7 @@ function AdminWorkshopForm() {
 
         setUploading(true);
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             const res = await fetch(`${API_BASE_URL}/upload`, {
                 method: 'POST',
                 headers: {
@@ -151,7 +151,7 @@ function AdminWorkshopForm() {
             if (!res.ok) throw new Error('Upload failed');
 
             const data = await res.json();
-            setFormData({ ...formData, image: data.filePath });
+            setFormData(prev => ({ ...prev, image: data.filePath }));
         } catch (error) {
             console.error('Error uploading image:', error);
             alert('Failed to upload image');
@@ -171,9 +171,11 @@ function AdminWorkshopForm() {
     const addAgendaItem = () => setAgenda([...agenda, { time: "", activity: "" }]);
     const removeAgendaItem = (index) => setAgenda(agenda.filter((_, i) => i !== index));
     const updateAgendaItem = (index, field, value) => {
-        const updated = [...agenda];
-        updated[index][field] = value;
-        setAgenda(updated);
+        setAgenda(prev => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
     };
 
     const handleInstructorImageUpload = async (e) => {
@@ -437,7 +439,7 @@ function AdminWorkshopForm() {
                                     {formData.image && (
                                         <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100 shrink-0">
                                             <img
-                                                src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
+                                                src={formData.image.startsWith('http') ? formData.image : `${API_BASE_URL.replace('/api', '')}${formData.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />
@@ -655,7 +657,7 @@ function AdminWorkshopForm() {
                                     {instructorForm.image && (
                                         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-rustic-clay shrink-0">
                                             <img
-                                                src={instructorForm.image.startsWith('http') ? instructorForm.image : `https://urbanharvest-production.up.railway.app${instructorForm.image}`}
+                                                src={instructorForm.image.startsWith('http') ? instructorForm.image : `${API_BASE_URL.replace('/api', '')}${instructorForm.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />

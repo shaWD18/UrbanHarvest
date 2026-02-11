@@ -133,7 +133,7 @@ function AdminProductForm() {
             if (!res.ok) throw new Error('Upload failed');
 
             const data = await res.json();
-            setFormData({ ...formData, image: data.filePath });
+            setFormData(prev => ({ ...prev, image: data.filePath }));
         } catch (error) {
             console.error('Error uploading image:', error);
             alert('Failed to upload image');
@@ -146,9 +146,11 @@ function AdminProductForm() {
     const removeSpecification = (index) =>
         setSpecifications(specifications.filter((_, i) => i !== index));
     const updateSpecification = (index, field, value) => {
-        const updated = [...specifications];
-        updated[index][field] = value;
-        setSpecifications(updated);
+        setSpecifications(prev => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
     };
 
     return (
@@ -264,7 +266,7 @@ function AdminProductForm() {
                             {(formData.image) && (
                                 <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100">
                                     <img
-                                        src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
+                                        src={formData.image.startsWith('http') ? formData.image : `${API_BASE_URL.replace('/api', '')}${formData.image}`}
                                         alt="Preview"
                                         className="w-full h-full object-cover"
                                         onError={(e) => { e.target.src = '/assets/placeholder.jpg' }}

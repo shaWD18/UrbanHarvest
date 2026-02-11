@@ -126,7 +126,7 @@ function AdminEventForm() {
 
         setUploading(true);
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             const res = await fetch(`${API_BASE_URL}/upload`, {
                 method: 'POST',
                 headers: {
@@ -140,7 +140,7 @@ function AdminEventForm() {
             const data = await res.json();
 
             if (field === 'main') {
-                setFormData({ ...formData, image: data.filePath });
+                setFormData(prev => ({ ...prev, image: data.filePath }));
             } else if (field === 'speaker' && index !== null) {
                 updateSpeaker(index, "image", data.filePath);
             }
@@ -164,17 +164,21 @@ function AdminEventForm() {
     const addAgendaItem = () => setAgenda([...agenda, { time: "", activity: "" }]);
     const removeAgendaItem = (index) => setAgenda(agenda.filter((_, i) => i !== index));
     const updateAgendaItem = (index, field, value) => {
-        const updated = [...agenda];
-        updated[index][field] = value;
-        setAgenda(updated);
+        setAgenda(prev => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
     };
 
     const addSpeaker = () => setSpeakers([...speakers, { name: "", role: "", image: "" }]);
     const removeSpeaker = (index) => setSpeakers(speakers.filter((_, i) => i !== index));
     const updateSpeaker = (index, field, value) => {
-        const updated = [...speakers];
-        updated[index][field] = value;
-        setSpeakers(updated);
+        setSpeakers(prev => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
     };
 
     return (
@@ -319,7 +323,7 @@ function AdminEventForm() {
                                     {formData.image && (
                                         <div className="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 relative bg-gray-100">
                                             <img
-                                                src={formData.image.startsWith('http') ? formData.image : `https://urbanharvest-production.up.railway.app${formData.image}`}
+                                                src={formData.image.startsWith('http') ? formData.image : `${API_BASE_URL.replace('/api', '')}${formData.image}`}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover"
                                             />
@@ -497,7 +501,7 @@ function AdminEventForm() {
                                                     {speaker.image && (
                                                         <div className="shrink-0">
                                                             <img
-                                                                src={speaker.image.startsWith('http') ? speaker.image : `https://urbanharvest-production.up.railway.app${speaker.image}`}
+                                                                src={speaker.image.startsWith('http') ? speaker.image : `${API_BASE_URL.replace('/api', '')}${speaker.image}`}
                                                                 alt="Speaker"
                                                                 className="w-10 h-10 rounded-full object-cover border border-gray-200"
                                                             />
