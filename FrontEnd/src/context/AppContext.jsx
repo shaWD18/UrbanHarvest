@@ -2,7 +2,9 @@ import { createContext, useState, useContext, useEffect } from "react";
 
 const AppContext = createContext();
 
-const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/api'
+    : 'https://urbanharvest-production.up.railway.app/api';
 
 export const AppProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
