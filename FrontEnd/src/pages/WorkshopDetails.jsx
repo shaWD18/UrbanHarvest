@@ -4,6 +4,8 @@ import { useAppContext } from "../context/AppContext";
 import { useAuth } from "../context/AuthContext";
 import BookingForm from "../components/BookingForm";
 import { FiArrowLeft, FiCalendar, FiMapPin, FiCheck, FiStar, FiCheckCircle, FiUser, FiClock, FiList, FiAward, FiLock, FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { API_BASE_URL } from "../config";
+
 
 function WorkshopDetails({ adminPreview = false }) {
   const { id } = useParams();
@@ -40,7 +42,7 @@ function WorkshopDetails({ adminPreview = false }) {
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch(`https://urbanharvest-production.up.railway.app/api/workshops/${id}/reviews`);
+      const res = await fetch(`${API_BASE_URL}/workshops/${id}/reviews`);
       if (res.ok) {
         const data = await res.json();
         setReviews(data);
@@ -55,7 +57,7 @@ function WorkshopDetails({ adminPreview = false }) {
   const checkEnrollment = async () => {
     if (!user) return;
     try {
-      const res = await fetch(`https://urbanharvest-production.up.railway.app/api/user/workshops`, {
+      const res = await fetch(`${API_BASE_URL}/user/workshops`, {
         headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
       });
       if (res.ok) {
@@ -78,8 +80,8 @@ function WorkshopDetails({ adminPreview = false }) {
     setReviewSubmitting(true);
     try {
       const url = editingReviewId
-        ? `https://urbanharvest-production.up.railway.app/api/workshops/${id}/reviews/${editingReviewId}`
-        : `https://urbanharvest-production.up.railway.app/api/workshops/${id}/reviews`;
+        ? `${API_BASE_URL}/workshops/${id}/reviews/${editingReviewId}`
+        : `${API_BASE_URL}/workshops/${id}/reviews`;
       const method = editingReviewId ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -120,7 +122,7 @@ function WorkshopDetails({ adminPreview = false }) {
   const handleDeleteReview = async (reviewId) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
     try {
-      const res = await fetch(`https://urbanharvest-production.up.railway.app/api/workshops/${id}/reviews/${reviewId}`, {
+      const res = await fetch(`${API_BASE_URL}/workshops/${id}/reviews/${reviewId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
       });

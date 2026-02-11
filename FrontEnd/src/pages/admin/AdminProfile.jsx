@@ -7,7 +7,7 @@ import {
 } from 'react-icons/fi';
 import { useNavigate, Link } from 'react-router-dom';
 
-const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
+import { API_BASE_URL } from "../../config";
 
 const AdminProfile = () => {
     const { user, getToken } = useAuth();

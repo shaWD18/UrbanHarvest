@@ -4,6 +4,8 @@ import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { FiTrash2, FiMinus, FiPlus, FiShoppingBag, FiCheckCircle } from "react-icons/fi";
 import CheckoutModal from "../components/CheckoutModal";
+import { API_BASE_URL } from "../config";
+
 
 function Checkout() {
     const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
@@ -25,7 +27,7 @@ function Checkout() {
 
         setPlacingOrder(true);
         try {
-            const response = await fetch("https://urbanharvest-production.up.railway.app/api/orders", {
+            const response = await fetch(`${API_BASE_URL}/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

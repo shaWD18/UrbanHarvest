@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FiPlus, FiX, FiSave, FiEye } from "react-icons/fi";
 
-const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
+import { API_BASE_URL } from "../../config";
 
 function AdminSubscriptionForm() {
     const { id } = useParams();
@@ -101,7 +101,7 @@ function AdminSubscriptionForm() {
         setUploading(true);
         try {
             const token = getToken();
-            const res = await fetch('https://urbanharvest-production.up.railway.app/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/upload`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

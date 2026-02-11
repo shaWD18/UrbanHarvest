@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { FiCheck, FiArrowLeft, FiClock, FiStar, FiCalendar, FiBox, FiMapPin, FiPhone, FiEdit2, FiTrash2 } from "react-icons/fi";
 import SubscriptionModal from "../components/SubscriptionModal";
 import CancelSubscriptionModal from "../components/CancelSubscriptionModal";
+import { API_BASE_URL } from "../config";
 
 const SubscriptionDetails = ({ adminPreview = false }) => {
     const { id } = useParams();
@@ -45,19 +46,19 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
     const fetchData = async () => {
         try {
             const token = getToken();
-            const subRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}`);
+            const subRes = await fetch(`${API_BASE_URL}/subscriptions/${id}`);
             if (!subRes.ok) throw new Error("Subscription not found");
             const subData = await subRes.json();
             setSubscription(subData);
 
-            const reviewsRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews`);
+            const reviewsRes = await fetch(`${API_BASE_URL}/subscriptions/${id}/reviews`);
             if (reviewsRes.ok) {
                 const reviewsData = await reviewsRes.json();
                 setReviews(reviewsData);
             }
 
             if (user && token) {
-                const statusRes = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/status`, {
+                const statusRes = await fetch(`${API_BASE_URL}/subscriptions/${id}/status`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (statusRes.ok) {
@@ -114,7 +115,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
                 payload.delivery_day = deliveryDay;
             }
 
-            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/subscribe`, {
+            const response = await fetch(`${API_BASE_URL}/subscriptions/${id}/subscribe`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -150,7 +151,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
         const token = getToken();
         setSubscribing(true);
         try {
-            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/unsubscribe`, {
+            const response = await fetch(`${API_BASE_URL}/subscriptions/${id}/unsubscribe`, {
                 method: "POST",
                 headers: { "Authorization": `Bearer ${token}` }
             });
@@ -172,8 +173,8 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
         const token = getToken();
         try {
             const url = editingReviewId
-                ? `https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews/${editingReviewId}`
-                : `https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews`;
+                ? `${API_BASE_URL}/subscriptions/${id}/reviews/${editingReviewId}`
+                : `${API_BASE_URL}/subscriptions/${id}/reviews`;
 
             const method = editingReviewId ? "PUT" : "POST";
 
@@ -216,7 +217,7 @@ const SubscriptionDetails = ({ adminPreview = false }) => {
 
         const token = getToken();
         try {
-            const response = await fetch(`https://urbanharvest-production.up.railway.app/api/subscriptions/${id}/reviews/${reviewId}`, {
+            const response = await fetch(`${API_BASE_URL}/subscriptions/${id}/reviews/${reviewId}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });

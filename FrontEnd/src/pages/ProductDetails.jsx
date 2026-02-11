@@ -4,6 +4,8 @@ import { useAppContext } from "../context/AppContext";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { FiArrowLeft, FiShoppingCart, FiCheck, FiTruck, FiShield, FiLock, FiStar, FiEdit2, FiTrash2, FiEye } from "react-icons/fi";
+import { API_BASE_URL } from "../config";
+
 
 function ProductDetails({ adminPreview = false }) {
   const { id } = useParams();
@@ -26,7 +28,7 @@ function ProductDetails({ adminPreview = false }) {
   const fetchReviews = async () => {
     setLoadingReviews(true);
     try {
-      const response = await fetch(`https://urbanharvest-production.up.railway.app/api/products/${id}/reviews`);
+      const response = await fetch(`${API_BASE_URL}/products/${id}/reviews`);
       if (response.ok) {
         const data = await response.json();
         setReviews(data);
@@ -69,8 +71,8 @@ function ProductDetails({ adminPreview = false }) {
 
     try {
       const url = editingReviewId
-        ? `https://urbanharvest-production.up.railway.app/api/reviews/${editingReviewId}`
-        : `https://urbanharvest-production.up.railway.app/api/products/${id}/reviews`;
+        ? `${API_BASE_URL}/reviews/${editingReviewId}`
+        : `${API_BASE_URL}/products/${id}/reviews`;
 
       const method = editingReviewId ? "PUT" : "POST";
 
@@ -114,7 +116,7 @@ function ProductDetails({ adminPreview = false }) {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      const response = await fetch(`https://urbanharvest-production.up.railway.app/api/reviews/${reviewId}`, {
+      const response = await fetch(`${API_BASE_URL}/reviews/${reviewId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`

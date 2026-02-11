@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { FiX, FiUser, FiMail, FiCalendar, FiClock } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
+import { API_BASE_URL } from "../../config";
+
 
 function AdminBookingModal({ workshopId, onClose, workshopTitle }) {
     const [bookings, setBookings] = useState([]);
@@ -11,7 +13,7 @@ function AdminBookingModal({ workshopId, onClose, workshopTitle }) {
         const fetchBookings = async () => {
             try {
                 const token = getToken();
-                const res = await fetch(`https://urbanharvest-production.up.railway.app/api/workshops/${workshopId}/bookings`, {
+                const res = await fetch(`${API_BASE_URL}/workshops/${workshopId}/bookings`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
 import SubscriptionCard from "../components/SubscriptionCard";
+import { API_BASE_URL } from "../config";
+
 
 const Subscriptions = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -15,7 +17,7 @@ const Subscriptions = () => {
 
     const fetchSubscriptions = async () => {
         try {
-            const response = await fetch("https://urbanharvest-production.up.railway.app/api/subscriptions");
+            const response = await fetch(`${API_BASE_URL}/subscriptions`);
             if (!response.ok) {
                 throw new Error("Failed to fetch subscriptions");
             }

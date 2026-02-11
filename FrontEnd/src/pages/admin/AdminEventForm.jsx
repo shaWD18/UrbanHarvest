@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useAppContext } from "../../context/AppContext";
 import { FiSave, FiArrowLeft, FiPlus, FiX, FiEye } from "react-icons/fi";
 
-const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
+import { API_BASE_URL } from "../../config";
 
 function AdminEventForm() {
     const { id } = useParams();
@@ -127,7 +127,7 @@ function AdminEventForm() {
         setUploading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('https://urbanharvest-production.up.railway.app/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/upload`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

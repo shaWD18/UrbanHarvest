@@ -5,7 +5,7 @@ import HistoryCard from '../../components/HistoryCard';
 import EmptyState from '../../components/EmptyState';
 import { FiTool } from 'react-icons/fi';
 
-const API_BASE_URL = 'https://urbanharvest-production.up.railway.app/api';
+import { API_BASE_URL } from "../../config";
 
 const ProfileWorkshops = () => {
     const { getToken } = useAuth();

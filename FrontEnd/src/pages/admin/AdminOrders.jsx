@@ -5,7 +5,7 @@ import { FiArrowLeft, FiShoppingBag, FiSearch, FiEye, FiPackage, FiUser, FiCalen
 import Pagination from "../../components/Pagination";
 import OrderDetailModal from "../../components/OrderDetailModal";
 
-const API_BASE_URL = "https://urbanharvest-production.up.railway.app/api";
+import { API_BASE_URL } from "../../config";
 const ITEMS_PER_PAGE = 10;
 
 function AdminOrders() {

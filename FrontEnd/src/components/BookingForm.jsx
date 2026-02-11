@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FiCheckCircle, FiUser, FiMail, FiTag } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 import { useAppContext } from "../context/AppContext";
+import { API_BASE_URL } from "../config";
+
 
 function BookingForm({ workshopId, eventId, title, type, price, onClose, maxTickets }) {
     const { getToken } = useAuth();
@@ -61,13 +63,13 @@ function BookingForm({ workshopId, eventId, title, type, price, onClose, maxTick
             let url, body;
 
             if (workshopId) {
-                url = `https://urbanharvest-production.up.railway.app/api/workshops/${workshopId}/book`;
+                url = `${API_BASE_URL}/workshops/${workshopId}/book`;
                 body = {
                     tickets: parseInt(formData.tickets),
                     totalPrice: total
                 };
             } else if (eventId) {
-                url = `https://urbanharvest-production.up.railway.app/api/events/${eventId}/book`;
+                url = `${API_BASE_URL}/events/${eventId}/book`;
                 body = {
                     attendees: parseInt(formData.tickets),
                     // Events might be free, total is implicit or not needed if free, but let's send it just in case logic needs it
