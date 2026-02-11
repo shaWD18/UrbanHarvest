@@ -7,6 +7,9 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const webpush = require('web-push');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
 
 const app = express();
 const PORT = 3000;
@@ -678,26 +681,14 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
     }
 });
 
-// ==================== FILE UPLOAD ====================
-
-// Configure Multer for local storage
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const type = req.body.type || 'others'; // products, events, workshops
-        const uploadPath = path.join(__dirname, '../FrontEnd/public/assets', type);
-
-        // Create directory if it doesn't exist
-        if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath, { recursive: true });
-        }
-        cb(null, uploadPath);
+// Configure Cloudinary Storage
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'urban-harvest',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+        transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
     },
-    filename: function (req, file, cb) {
-        // Generate unique filename: timestamp-sanitizedOriginalName
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-    }
 });
 
 const upload = multer({ storage: storage });
@@ -709,14 +700,8 @@ app.post('/api/upload', authenticateToken, authorizeAdmin, upload.single('image'
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        // Return the path relative to the public folder (what the frontend needs)
-        // req.file.path is the absolute path on the server
-        // We need: /assets/[type]/filename.jpg
-
-        const type = req.body.type || 'others';
-        const relativePath = `/assets/${type}/${req.file.filename}`;
-
-        res.json({ filePath: relativePath });
+        // Return the Cloudinary URL (req.file.path contains the URL when using CloudinaryStorage)
+        res.json({ filePath: req.file.path });
     } catch (error) {
         console.error('Upload error:', error);
         res.status(500).json({ error: 'File upload failed' });
